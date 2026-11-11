@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Galería — Automation Desk</title>
+<meta name="description" content="Galería del Automation Desk: fotografías del tablero físico construido, panel frontal, módulo ESP32 y renders del banco de entrenamiento.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%230A0B0D'/><circle cx='16' cy='16' r='7' fill='%23FF9E40'/></svg>">
+</head>
+<body>
+
+<nav class="nav" aria-label="Navegación principal">
+  <a class="nav-brand" href="index.html">AUTOMATION<b>//</b>DESK</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Inicio</a></li>
+    <li><a href="banco.html">El banco</a></li>
+    <li><a href="monitoreo.html">Monitoreo ESP32</a></li>
+    <li><a href="riesgos.html">Riesgos</a></li>
+    <li><a href="galeria.html" aria-current="page">Galería</a></li>
+    <li><a href="equipo.html">Equipo</a></li>
+  </ul>
+  <button class="nav-toggle" aria-label="Abrir menú" aria-expanded="false">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7h18M3 12h18M3 17h18"/></svg>
+  </button>
+</nav>
+
+<div class="mobile-menu" role="dialog" aria-label="Menú">
+  <button class="mobile-menu-close" aria-label="Cerrar menú">✕</button>
+  <a href="index.html"><span class="idx">01</span>Inicio</a>
+  <a href="banco.html"><span class="idx">02</span>El banco</a>
+  <a href="monitoreo.html"><span class="idx">03</span>Monitoreo ESP32</a>
+  <a href="riesgos.html"><span class="idx">04</span>Riesgos</a>
+  <a href="galeria.html" aria-current="page"><span class="idx">05</span>Galería</a>
+  <a href="equipo.html"><span class="idx">06</span>Equipo</a>
+</div>
+
+<header class="page-hero grid-bg">
+  <div class="wrap">
+    <span class="kicker rv">05 / Galería</span>
+    <h1 class="rv rv-d1">El banco, del render al laboratorio</h1>
+    <p class="rv rv-d2">Fotos del tablero construido y renders de diseño, cada uno identificado en su etiqueta (FOTO o RENDER): protecciones, contactores, relés térmicos, panel frontal y el módulo ESP32. Pulsa cualquier imagen para ampliarla.</p>
+  </div>
+</header>
+
+<section class="section" style="padding-top:24px">
+  <div class="wrap">
+    <div class="gallery">
+      <figure class="g-item g-12 rv" tabindex="0" role="button" aria-label="Ampliar: tablero nuevo junto a los módulos del laboratorio">
+        <img src="assets/img/tablero-nuevo-vs-antiguo.jpg" alt="Tablero nuevo del Automation Desk abierto junto a un gabinete y módulos de potencia del laboratorio actual" loading="lazy">
+        <figcaption><b>Tablero nuevo junto a los módulos del laboratorio</b><span>LABORATORIO · FOTO</span></figcaption>
+      </figure>
+      <figure class="g-item g-6 rv" tabindex="0" role="button" aria-label="Ampliar: interior del tablero">
+        <img src="assets/img/tablero-interior.jpg" alt="Interior del tablero con breakers, contactores trifásicos, relés térmicos y temporizador sobre rieles DIN" loading="lazy">
+        <figcaption><b>Interior del tablero</b><span>FIG. 1A · FOTO</span></figcaption>
+      </figure>
+      <figure class="g-item g-6 rv rv-d1" tabindex="0" role="button" aria-label="Ampliar: panel frontal de control">
+        <img src="assets/img/tablero-frontal.jpg" alt="Panel frontal con pulsadores de 22 mm, selectores rotativos, pilotos, sirena y amperímetro" loading="lazy">
+        <figcaption><b>Panel frontal de control</b><span>FIG. 1B · FOTO</span></figcaption>
+      </figure>
+      <figure class="g-item g-8 rv" tabindex="0" role="button" aria-label="Ampliar: render del tablero completo">
+        <img src="assets/img/render-tablero.jpg" alt="Render del tablero Automation Desk con iluminación de pilotos y pantalla" loading="lazy">
+        <figcaption><b>Render del tablero</b><span>DISEÑO · 3D</span></figcaption>
+      </figure>
+      <figure class="g-item g-4 rv rv-d1" tabindex="0" role="button" aria-label="Ampliar: módulo ESP32 sobre riel DIN">
+        <img src="assets/img/esp32-riel.jpg" alt="Render del módulo ESP32 con torre de señalización montado sobre riel DIN" loading="lazy">
+        <figcaption><b>ESP32 sobre riel DIN</b><span>MÓDULO 04 · RENDER</span></figcaption>
+      </figure>
+      <figure class="g-item g-4 rv" tabindex="0" role="button" aria-label="Ampliar: tablero en montaje">
+        <img src="assets/img/tablero-montaje.jpg" alt="Render de un tablero en montaje con contactores y canalización" loading="lazy">
+        <figcaption><b>Concepto de montaje</b><span>TALLER · RENDER</span></figcaption>
+      </figure>
+      <figure class="g-item g-8 rv rv-d1" tabindex="0" role="button" aria-label="Ampliar: render del banco de entrenamiento">
+        <img src="assets/img/render-banco.jpg" alt="Render del banco de entrenamiento completo con instrumentos" loading="lazy">
+        <figcaption><b>Banco de entrenamiento</b><span>DISEÑO · 3D</span></figcaption>
+      </figure>
+      <figure class="g-item g-12 rv" tabindex="0" role="button" aria-label="Ampliar: cableado de la ESP32 en el tablero">
+        <img src="assets/img/cableado-esp32.jpg" alt="Render del cableado estructurado de la ESP32 integrada al tablero de control" loading="lazy">
+        <figcaption><b>Integración de la ESP32 (concepto)</b><span>FASE 4 · RENDER</span></figcaption>
+      </figure>
+      <figure class="g-item g-4 rv" tabindex="0" role="button" aria-label="Ampliar: tarjeta ESP32">
+        <img src="assets/img/esp32-wroom32e.jpg" alt="Foto de la tarjeta de desarrollo ESP32 con módulo ESP32-WROOM-32E" loading="lazy">
+        <figcaption><b>Tarjeta ESP32</b><span>HARDWARE · FOTO</span></figcaption>
+      </figure>
+      <figure class="g-item g-8 rv rv-d1" tabindex="0" role="button" aria-label="Ampliar: panel frontal render">
+        <img src="assets/img/panel-frontal.jpg" alt="Render del panel frontal con pulsadores, selectores y amperímetro" loading="lazy">
+        <figcaption><b>Panel frontal — disposición de mando</b><span>DISEÑO · 3D</span></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<div class="lightbox" role="dialog" aria-modal="true" aria-label="Vista ampliada de imagen">
+  <button class="lightbox-close" aria-label="Cerrar vista ampliada">✕</button>
+  <img src="" alt="">
+  <span class="cap"></span>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand">AUTOMATION<b>//</b>DESK</div>
+        <p>Banco de entrenamiento eléctrico-industrial 4.0 con sistema de monitoreo basado en ESP32. Proyecto Integrador, Facultad de Ingeniería.</p>
+      </div>
+      <div>
+        <h4>Portafolio</h4>
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="banco.html">El banco</a></li>
+          <li><a href="monitoreo.html">Monitoreo ESP32</a></li>
+          <li><a href="equipo.html">Equipo y cronograma</a></li>
+          <li><a href="riesgos.html">Matriz de riesgos</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Institución</h4>
+        <ul>
+          <li><a href="https://www.usb.edu.co" target="_blank" rel="noopener">Universidad San Buenaventura</a></li>
+          <li><span style="color:var(--muted);font-size:14px">Bogotá D.C., Colombia</span></li>
+          <li><span style="color:var(--muted);font-size:14px">Semestre 2026-II</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bar">
+      <span>© <span data-year>2026</span> Bryan Cadena Agudelo · Ángel David Rubio</span>
+      <span>Profesor: Jonathan Paolo Tovar</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>

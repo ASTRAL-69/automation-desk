@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Automation Desk — Banco de entrenamiento eléctrico-industrial 4.0</title>
+<meta name="description" content="Automation Desk: banco de entrenamiento eléctrico-industrial 4.0 con monitoreo ESP32. Proyecto Integrador, Facultad de Ingeniería, Universidad San Buenaventura Bogotá.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%230A0B0D'/><circle cx='16' cy='16' r='7' fill='%23FF9E40'/></svg>">
+</head>
+<body>
+
+<nav class="nav" aria-label="Navegación principal">
+  <a class="nav-brand" href="index.html">AUTOMATION<b>//</b>DESK</a>
+  <ul class="nav-links">
+    <li><a href="index.html" aria-current="page">Inicio</a></li>
+    <li><a href="banco.html">El banco</a></li>
+    <li><a href="monitoreo.html">Monitoreo ESP32</a></li>
+    <li><a href="riesgos.html">Riesgos</a></li>
+    <li><a href="galeria.html">Galería</a></li>
+    <li><a href="equipo.html">Equipo</a></li>
+  </ul>
+  <button class="nav-toggle" aria-label="Abrir menú" aria-expanded="false">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7h18M3 12h18M3 17h18"/></svg>
+  </button>
+</nav>
+
+<div class="mobile-menu" role="dialog" aria-label="Menú">
+  <button class="mobile-menu-close" aria-label="Cerrar menú">✕</button>
+  <a href="index.html" aria-current="page"><span class="idx">01</span>Inicio</a>
+  <a href="banco.html"><span class="idx">02</span>El banco</a>
+  <a href="monitoreo.html"><span class="idx">03</span>Monitoreo ESP32</a>
+  <a href="riesgos.html"><span class="idx">04</span>Riesgos</a>
+  <a href="galeria.html"><span class="idx">05</span>Galería</a>
+  <a href="equipo.html"><span class="idx">06</span>Equipo</a>
+</div>
+
+<header class="hero grid-bg">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <span class="kicker rv">Proyecto Integrador · USB Bogotá · 2026-II</span>
+      <h1 class="rv rv-d1">Banco de entrenamiento <span class="thin">eléctrico&#8209;industrial</span> 4.0</h1>
+      <p class="hero-sub rv rv-d2">Automation Desk reemplaza los módulos didácticos obsoletos de la Facultad de Ingeniería con un banco conforme al RETIE 2024, supervisado por una ESP32 con firmware FreeRTOS: protección térmica vigilada cada 20 ms y telemetría por puerto serie cada 3 s.</p>
+      <div class="hero-ctas rv rv-d3">
+        <a class="btn btn-primary" href="banco.html">Explorar el banco
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <a class="btn btn-ghost" href="monitoreo.html">Ver el sistema ESP32
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="hero-media rv rv-d2">
+      <img src="assets/img/render-tablero.jpg" alt="Render del tablero Automation Desk con contactores, relés térmicos y pantalla de monitoreo" width="778" height="800">
+      <span class="tag t1">RETIE 2024</span>
+      <span class="tag t2">ESP32 · FreeRTOS</span>
+    </div>
+    <div class="hero-stats rv">
+      <div class="stat"><div class="num"><em>4</em></div><div class="lbl">Módulos de entrenamiento</div></div>
+      <div class="stat"><div class="num"><em>3</em></div><div class="lbl">Motores supervisados</div></div>
+      <div class="stat"><div class="num">k=<em>0,91</em></div><div class="lbl">Corrección por altitud · 2.640 m.s.n.m.</div></div>
+      <div class="stat"><div class="num"><em>20</em> ms</div><div class="lbl">Ciclo de la tarea de seguridad</div></div>
+    </div>
+  </div>
+</header>
+
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span><b>●</b>RETIE 2024<b>●</b>NTC 2050<b>●</b>IEC 60947-1<b>●</b>INDUSTRIA 4.0<b>●</b>ESP32<b>●</b>FREERTOS<b>●</b>NODE-RED<b>●</b>IOT INDUSTRIAL</span>
+    <span><b>●</b>RETIE 2024<b>●</b>NTC 2050<b>●</b>IEC 60947-1<b>●</b>INDUSTRIA 4.0<b>●</b>ESP32<b>●</b>FREERTOS<b>●</b>NODE-RED<b>●</b>IOT INDUSTRIAL</span>
+  </div>
+</div>
+
+<section class="section">
+  <div class="wrap">
+    <div class="split">
+      <div class="l rv">
+        <span class="kicker">01 / El problema</span>
+        <h2 style="font-size:clamp(28px,3.6vw,44px);font-weight:700;letter-spacing:-.02em;line-height:1.12;margin-top:22px">El laboratorio se quedó una generación atrás.</h2>
+      </div>
+      <div class="r rv rv-d1">
+        <p style="color:var(--muted)">Los módulos de entrenamiento eléctrico disponibles en la Facultad de Ingeniería presentan <strong style="color:var(--text)">obsolescencia tecnológica</strong>: no permiten integrar automatización ni IoT, no ofrecen registro digital de las prácticas y no reflejan las condiciones reales de la industria.</p>
+        <p style="color:var(--muted);margin-top:18px">Eso abre una brecha entre lo que los estudiantes practican en el laboratorio y lo que les exigirá el ejercicio profesional en fábricas interconectadas, donde máquinas, sensores y sistemas de información intercambian datos para optimizar la producción.</p>
+        <p style="margin-top:26px"><a class="btn btn-ghost" href="banco.html">Cómo lo resolvemos
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a class="btn btn-ghost" href="banco.html#diagrama-pez" style="margin-left:10px">Ver diagrama de causas</a></p>
+      </div>
+    </div>
+    <figure class="photo-compare rv">
+      <img src="assets/img/tablero-nuevo-vs-antiguo.jpg" alt="A la izquierda, el tablero nuevo del Automation Desk con breakers, contactores y relés térmicos; a la derecha, un gabinete y módulos de potencia del laboratorio actual" width="1400" height="788" loading="lazy">
+      <figcaption>Foto real: el tablero nuevo del Automation Desk (izquierda) junto a un gabinete y módulos de potencia del laboratorio actual (derecha).</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0">
+  <div class="wrap">
+    <div class="section-head rv">
+      <span class="kicker">02 / Arquitectura</span>
+      <h2>Cuatro módulos, un banco completo</h2>
+      <p>De la lógica de control al monitoreo en la nube: cada módulo cubre una capa de la automatización industrial moderna.</p>
+    </div>
+    <div class="mods">
+      <article class="mod rv">
+        <span class="idx">MÓDULO — 01</span>
+        <h3>Control y automatización con PLC</h3>
+        <p>Lógica programable para secuencias de mando, enclavamientos y diagnóstico de procesos.</p>
+        <img src="assets/img/mod-breakers.jpg" alt="Protecciones y contactores del módulo de control sobre riel DIN" loading="lazy">
+      </article>
+      <article class="mod rv rv-d1">
+        <span class="idx">MÓDULO — 02</span>
+        <h3>Potencia y arranque de motores</h3>
+        <p>Guardamotores, contactores trifásicos y relés térmicos NR2-25 para maniobras reales de arranque.</p>
+        <img src="assets/img/tablero-interior.jpg" alt="Interior del tablero con protecciones, contactores y relés térmicos" loading="lazy">
+      </article>
+      <article class="mod rv rv-d2">
+        <span class="idx">MÓDULO — 03</span>
+        <h3>Variador de frecuencia</h3>
+        <p>Control de velocidad y par sobre motores trifásicos, con puesta en marcha parametrizable.</p>
+        <img src="assets/img/mod-variador.jpg" alt="Variador de frecuencia conectado a motor trifásico" loading="lazy">
+      </article>
+      <article class="mod rv rv-d3">
+        <span class="idx">MÓDULO — 04</span>
+        <h3>Sensores e IoT</h3>
+        <p>ESP32 como sistema de monitoreo y seguridad complementaria, con telemetría hacia Node-RED.</p>
+        <img src="assets/img/esp32-riel.jpg" alt="Módulo ESP32 montado sobre riel DIN con torre de señalización" loading="lazy">
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+  <div class="wrap">
+    <div class="split" style="align-items:center">
+      <div class="l rv">
+        <div class="k-panel">
+          <div class="big">k=0,91</div>
+          <div class="lbl">Factor de corrección por altitud</div>
+          <p>Bogotá opera a 2.640 m.s.n.m. Las corrientes nominales de guardamotor, contactor y relé térmico se corrigen con este factor para un diseño seguro y conforme a norma.</p>
+        </div>
+      </div>
+      <div class="r rv rv-d1">
+        <span class="kicker">03 / Normativa</span>
+        <h2 style="font-size:clamp(26px,3.2vw,40px);font-weight:700;letter-spacing:-.02em;margin:22px 0 26px;line-height:1.15">Diseñado sobre el marco técnico-legal vigente</h2>
+        <div class="norm-list">
+          <div class="norm"><span class="code">RETIE</span><span class="desc">Reglamento Técnico de Instalaciones Eléctricas</span><span class="meta">Res. 40117 / 2024</span></div>
+          <div class="norm"><span class="code">NTC 2050</span><span class="desc">Código Eléctrico Colombiano</span><span class="meta">ICONTEC / 2020</span></div>
+          <div class="norm"><span class="code">IEC 60947-1</span><span class="desc">Equipos de maniobra y control de baja tensión</span><span class="meta">IEC / 2020</span></div>
+          <div class="norm"><span class="code">IEC 60947-4-1</span><span class="desc">Contactores y arrancadores electromecánicos de motor</span><span class="meta">IEC / 2023</span></div>
+          <div class="norm"><span class="code">L.142/143</span><span class="desc">Marco legal del servicio público eléctrico</span><span class="meta">Congreso / 1994</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head rv">
+      <span class="kicker">04 / Metas del proyecto</span>
+      <h2>Indicadores que apuntan a la Industria 4.0</h2>
+      <p>Metas esperadas del proyecto completo, de la práctica análoga al registro digital total.</p>
+    </div>
+    <div class="metrics">
+      <div class="metric rv"><div class="fromto"><s>1</s><span class="arr">→</span><b>8+</b></div><div class="lbl">Escenarios de práctica disponibles</div></div>
+      <div class="metric rv rv-d1"><div class="fromto"><s>90</s><span class="arr">→</span><b>50</b> min</div><div class="lbl">Tiempo de montaje por práctica</div></div>
+      <div class="metric rv rv-d2"><div class="fromto"><b>100%</b></div><div class="lbl">Prácticas con registro digital</div></div>
+      <div class="metric rv rv-d3"><div class="fromto"><s>3,4</s><span class="arr">→</span><b>4,2</b>/5</div><div class="lbl">Nota promedio esperada en motores</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0">
+  <div class="wrap">
+    <div class="split" style="align-items:center">
+      <div class="l rv">
+        <span class="kicker">05 / Monitoreo</span>
+        <h2 style="font-size:clamp(26px,3.4vw,42px);font-weight:700;letter-spacing:-.02em;margin-top:22px;line-height:1.12">La seguridad nunca depende de la comunicación</h2>
+        <p style="color:var(--muted);margin-top:18px">Un firmware FreeRTOS separa la seguridad crítica, el control de motores y la telemetría en tareas independientes, con prioridades y núcleos distintos. La cadena de relés térmicos se lee cada 20 ms y, ante un disparo, los tres contactores se desenergizan de inmediato.</p>
+        <p style="margin-top:28px"><a class="btn btn-primary" href="monitoreo.html">Ver la arquitectura del firmware
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></p>
+      </div>
+      <div class="r rv rv-d1">
+        <img src="assets/img/cableado-esp32.jpg" alt="Render ilustrativo del cableado del módulo ESP32 en el tablero de control" style="border-radius:var(--r-md);border:1px solid var(--border)" width="797" height="393" loading="lazy">
+        <p class="img-note">Render ilustrativo</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="background:var(--surface);border-top:1px solid var(--border)">
+  <div class="wrap">
+    <div class="section-head rv">
+      <span class="kicker">06 / Gestión de riesgos</span>
+      <h2>80 eventos evaluados, 4 de riesgo alto</h2>
+      <p>La matriz de riesgos analiza la fase de desarrollo y la fase operativa en campo industrial, con probabilidad × consecuencia y un plan de mitigación para cada evento.</p>
+    </div>
+    <div class="metrics">
+      <div class="metric rv"><div class="fromto"><b>80</b></div><div class="lbl">Eventos evaluados en dos fases</div></div>
+      <div class="metric rv rv-d1"><div class="fromto"><b>5</b></div><div class="lbl">Categorías de riesgo</div></div>
+      <div class="metric rv rv-d2"><div class="fromto"><b>60</b></div><div class="lbl">Riesgos de nivel medio</div></div>
+      <div class="metric rv rv-d3"><div class="fromto"><b>4</b></div><div class="lbl">Riesgos de nivel alto</div></div>
+    </div>
+    <p class="rv" style="margin-top:44px"><a class="btn btn-primary" href="riesgos.html">Ver la matriz de riesgos <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand">AUTOMATION<b>//</b>DESK</div>
+        <p>Banco de entrenamiento eléctrico-industrial 4.0 con sistema de monitoreo basado en ESP32. Proyecto Integrador, Facultad de Ingeniería.</p>
+      </div>
+      <div>
+        <h4>Portafolio</h4>
+        <ul>
+          <li><a href="banco.html">El banco</a></li>
+          <li><a href="monitoreo.html">Monitoreo ESP32</a></li>
+          <li><a href="galeria.html">Galería</a></li>
+          <li><a href="equipo.html">Equipo y cronograma</a></li>
+          <li><a href="riesgos.html">Matriz de riesgos</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Institución</h4>
+        <ul>
+          <li><a href="https://www.usb.edu.co" target="_blank" rel="noopener">Universidad San Buenaventura</a></li>
+          <li><span style="color:var(--muted);font-size:14px">Bogotá D.C., Colombia</span></li>
+          <li><span style="color:var(--muted);font-size:14px">Semestre 2026-II</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bar">
+      <span>© <span data-year>2026</span> Bryan Cadena Agudelo · Ángel David Rubio</span>
+      <span>Profesor: Jonathan Paolo Tovar</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Monitoreo ESP32 — Automation Desk</title>
+<meta name="description" content="Sistema de monitoreo del Automation Desk: mapa de señales GPIO de la ESP32, firmware FreeRTOS con tres tareas y diagrama de conexión con optoacopladores y módulo de relés.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%230A0B0D'/><circle cx='16' cy='16' r='7' fill='%23FF9E40'/></svg>">
+</head>
+<body>
+
+<nav class="nav" aria-label="Navegación principal">
+  <a class="nav-brand" href="index.html">AUTOMATION<b>//</b>DESK</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Inicio</a></li>
+    <li><a href="banco.html">El banco</a></li>
+    <li><a href="monitoreo.html" aria-current="page">Monitoreo ESP32</a></li>
+    <li><a href="riesgos.html">Riesgos</a></li>
+    <li><a href="galeria.html">Galería</a></li>
+    <li><a href="equipo.html">Equipo</a></li>
+  </ul>
+  <button class="nav-toggle" aria-label="Abrir menú" aria-expanded="false">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7h18M3 12h18M3 17h18"/></svg>
+  </button>
+</nav>
+
+<div class="mobile-menu" role="dialog" aria-label="Menú">
+  <button class="mobile-menu-close" aria-label="Cerrar menú">✕</button>
+  <a href="index.html"><span class="idx">01</span>Inicio</a>
+  <a href="banco.html"><span class="idx">02</span>El banco</a>
+  <a href="monitoreo.html" aria-current="page"><span class="idx">03</span>Monitoreo ESP32</a>
+  <a href="riesgos.html"><span class="idx">04</span>Riesgos</a>
+  <a href="galeria.html"><span class="idx">05</span>Galería</a>
+  <a href="equipo.html"><span class="idx">06</span>Equipo</a>
+</div>
+
+<header class="page-hero grid-bg">
+  <div class="wrap">
+    <span class="kicker rv">03 / Monitoreo ESP32</span>
+    <h1 class="rv rv-d1">Seguridad, control y telemetría en dos núcleos</h1>
+    <p class="rv rv-d2">Una tarjeta ESP32 supervisa la cadena de relés térmicos, ejecuta un interbloqueo de seguridad por software sobre tres contactores de motor y reporta el estado de cada motor por puerto serie — base para el futuro tablero en Node-RED.</p>
+    <p class="rv rv-d3" style="margin-top:28px"><a class="btn btn-ghost" href="docs/Automation_Desk_Informe.docx" download>Descargar el informe técnico (.docx)</a></p>
+  </div>
+</header>
+
+<section class="section" style="padding-top:24px">
+  <div class="wrap">
+    <div class="section-head rv">
+      <span class="kicker">Mapa de señales</span>
+      <h2>Ocho pines, un sistema completo</h2>
+      <p>Cada selector del panel frontal se lee a través de un optoacoplador; cada contactor se comanda desde un módulo de relés. La cadena de relés térmicos se monitorea en una sola entrada y la alarma acústica tiene salida independiente.</p>
+    </div>
+    <div class="split">
+      <div class="l rv">
+        <img src="assets/img/esp32-wroom32e.jpg" alt="Foto de la tarjeta de desarrollo ESP32 con módulo ESP32-WROOM-32E" style="border-radius:var(--r-md);border:1px solid var(--border);width:100%;max-width:260px" width="302" height="600" loading="lazy">
+        <p class="mono" style="font-size:12px;color:var(--faint);margin-top:14px;letter-spacing:.08em">ESP32-WROOM-32E · DOBLE NÚCLEO · Wi-Fi + GPIO</p>
+      </div>
+      <div class="r-wide rv rv-d1">
+        <table class="tech-table">
+          <caption>Tabla — Asignación de pines de la ESP32</caption>
+          <thead>
+            <tr><th>Señal</th><th>Sentido</th><th>GPIO</th><th>Descripción</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Selector AUTO, motor 1 (izquierda)</td><td><span class="chip in">ENTRADA</span></td><td class="gpio">34</td><td>Desde optoacoplador</td></tr>
+            <tr><td>Selector AUTO, motor 2 (centro)</td><td><span class="chip in">ENTRADA</span></td><td class="gpio">35</td><td>Desde optoacoplador</td></tr>
+            <tr><td>Selector AUTO, motor 3 (derecha)</td><td><span class="chip in">ENTRADA</span></td><td class="gpio">32</td><td>Desde optoacoplador</td></tr>
+            <tr><td>Contactor KM1, motor 1</td><td><span class="chip out">SALIDA</span></td><td class="gpio">25</td><td>Hacia módulo de relés</td></tr>
+            <tr><td>Contactor KM2, motor 2</td><td><span class="chip out">SALIDA</span></td><td class="gpio">26</td><td>Hacia módulo de relés</td></tr>
+            <tr><td>Contactor KM3, motor 3</td><td><span class="chip out">SALIDA</span></td><td class="gpio">27</td><td>Hacia módulo de relés</td></tr>
+            <tr><td>Cadena de relés térmicos</td><td><span class="chip in">ENTRADA</span></td><td class="gpio">33</td><td>Detecta disparo de cualquier térmico</td></tr>
+            <tr><td>Zumbador de alarma</td><td><span class="chip alarm">SALIDA</span></td><td class="gpio">19</td><td>Alarma acústica del panel frontal</td></tr>
+          </tbody>
+        </table>
+        <p class="note">Los GPIO 34 y 35 son de solo entrada, apropiados para leer los selectores a través de los optoacopladores. Las salidas de comando trabajan a nivel lógico de 3,3 V hacia el módulo de relés.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+  <div class="wrap">
+    <div class="section-head rv">
+      <span class="kicker">Diagrama de conexión</span>
+      <h2>Del selector al contactor, pasando por la ESP32</h2>
+      <p>Desplázate para trazar el recorrido de cada señal: entradas aisladas por optoacopladores a la izquierda, salidas hacia el módulo de relés y la alarma a la derecha.</p>
+    </div>
+    <div class="diagram-wrap rv">
+      <svg viewBox="0 0 1200 560" role="img" aria-label="Diagrama de señales: selectores y cadena térmica entran por optoacopladores a la ESP32; las salidas van al módulo de relés que comanda los contactores y al zumbador de alarma">
+        <!-- cables: entradas -->
+        <path class="dg-wire" d="M230 90 C 320 90, 330 120, 420 120"/>
+        <path class="dg-wire" d="M230 160 C 320 160, 330 160, 420 160"/>
+        <path class="dg-wire" d="M230 230 C 320 230, 330 200, 420 200"/>
+        <path class="dg-wire live" d="M230 330 C 330 330, 340 300, 420 300"/>
+        <!-- cables: salidas -->
+        <path class="dg-wire live" d="M640 120 C 730 120, 740 90, 830 90"/>
+        <path class="dg-wire" d="M640 160 C 730 160, 740 160, 830 160"/>
+        <path class="dg-wire" d="M640 200 C 730 200, 740 230, 830 230"/>
+        <path class="dg-wire live" d="M640 300 C 740 300, 760 400, 860 400"/>
+        <!-- relés a contactores -->
+        <path class="dg-wire" d="M1000 90 C 1060 90, 1060 90, 1110 90"/>
+        <path class="dg-wire" d="M1000 160 C 1060 160, 1060 160, 1110 160"/>
+        <path class="dg-wire" d="M1000 230 C 1060 230, 1060 230, 1110 230"/>
+
+        <!-- entradas: selectores -->
+        <rect class="dg-box" x="60" y="62" width="170" height="56" rx="8"/>
+        <text class="dg-txt" x="80" y="86">Selector AUTO · M1</text>
+        <text class="dg-mono" x="80" y="104">PANEL FRONTAL · IZQ</text>
+        <rect class="dg-box" x="60" y="132" width="170" height="56" rx="8"/>
+        <text class="dg-txt" x="80" y="156">Selector AUTO · M2</text>
+        <text class="dg-mono" x="80" y="174">PANEL FRONTAL · CENTRO</text>
+        <rect class="dg-box" x="60" y="202" width="170" height="56" rx="8"/>
+        <text class="dg-txt" x="80" y="226">Selector AUTO · M3</text>
+        <text class="dg-mono" x="80" y="244">PANEL FRONTAL · DER</text>
+        <rect class="dg-box" x="60" y="300" width="170" height="60" rx="8"/>
+        <text class="dg-txt" x="80" y="326">Cadena de relés</text>
+        <text class="dg-txt" x="80" y="342">térmicos NR2-25</text>
+        <text class="dg-mono" x="80" y="356" style="fill:#D85C46">PROTECCIÓN TÉRMICA</text>
+
+        <!-- optoacopladores -->
+        <rect class="dg-box" x="300" y="80" width="120" height="290" rx="8"/>
+        <text class="dg-txt" x="318" y="196">Opto-</text>
+        <text class="dg-txt" x="318" y="212">acopladores</text>
+        <text class="dg-mono" x="318" y="232">AISLAMIENTO</text>
+        <text class="dg-mono" x="318" y="245">GALVÁNICO</text>
+        <text class="dg-mono" x="318" y="268">4 CANALES</text>
+
+        <!-- ESP32 core -->
+        <rect class="dg-box core" x="420" y="60" width="220" height="320" rx="12"/>
+        <text class="dg-txt" x="450" y="100" style="font-size:20px">ESP32</text>
+        <text class="dg-mono hot" x="450" y="120">FREERTOS · 2 NÚCLEOS</text>
+        <text class="dg-mono" x="450" y="150">GPIO 34 · SEL M1</text>
+        <text class="dg-mono" x="450" y="170">GPIO 35 · SEL M2</text>
+        <text class="dg-mono" x="450" y="190">GPIO 32 · SEL M3</text>
+        <text class="dg-mono" x="450" y="210" style="fill:#D85C46">GPIO 33 · TÉRMICOS</text>
+        <line x1="440" y1="228" x2="620" y2="228" stroke="#262A31" stroke-width="1"/>
+        <text class="dg-mono" x="450" y="252">GPIO 25 · KM1</text>
+        <text class="dg-mono" x="450" y="272">GPIO 26 · KM2</text>
+        <text class="dg-mono" x="450" y="292">GPIO 27 · KM3</text>
+        <text class="dg-mono" x="450" y="312" style="fill:#D85C46">GPIO 19 · ALARMA</text>
+        <line x1="440" y1="330" x2="620" y2="330" stroke="#262A31" stroke-width="1"/>
+        <text class="dg-mono" x="450" y="352" style="fill:#5FA8C7">UART · TELEMETRÍA 3 s</text>
+        <text class="dg-mono" x="450" y="368" style="fill:#5FA8C7">→ NODE-RED (FASE SIG.)</text>
+
+        <!-- módulo de relés -->
+        <rect class="dg-box" x="830" y="62" width="170" height="196" rx="8"/>
+        <text class="dg-txt" x="850" y="92">Módulo de relés</text>
+        <text class="dg-mono" x="850" y="112">CANAL 1 · KM1</text>
+        <text class="dg-mono" x="850" y="132">CANAL 2 · KM2</text>
+        <text class="dg-mono" x="850" y="152">CANAL 3 · KM3</text>
+        <text class="dg-mono" x="850" y="186">COMANDO DE</text>
+        <text class="dg-mono" x="850" y="199">CONTACTORES</text>
+        <text class="dg-mono" x="850" y="226" style="fill:#D9A24A">INTERBLOQUEO POR</text>
+        <text class="dg-mono" x="850" y="239" style="fill:#D9A24A">SOFTWARE</text>
+
+        <!-- contactores -->
+        <rect class="dg-box" x="1110" y="62" width="80" height="56" rx="8" transform="translate(-20,0)"/>
+        <text class="dg-txt" x="1112" y="86">KM1</text>
+        <text class="dg-mono" x="1104" y="104">MOTOR 1</text>
+        <rect class="dg-box" x="1110" y="132" width="80" height="56" rx="8" transform="translate(-20,0)"/>
+        <text class="dg-txt" x="1112" y="156">KM2</text>
+        <text class="dg-mono" x="1104" y="174">MOTOR 2</text>
+        <rect class="dg-box" x="1110" y="202" width="80" height="56" rx="8" transform="translate(-20,0)"/>
+        <text class="dg-txt" x="1112" y="226">KM3</text>
+        <text class="dg-mono" x="1104" y="244">MOTOR 3</text>
+
+        <!-- zumbador -->
+        <rect class="dg-box" x="860" y="372" width="170" height="56" rx="8"/>
+        <text class="dg-txt" x="880" y="396">Zumbador de alarma</text>
+        <text class="dg-mono" x="880" y="414" style="fill:#D85C46">PANEL FRONTAL</text>
+
+        <!-- notas al pie del diagrama -->
+        <text class="dg-mono" x="60" y="480">ENTRADAS AISLADAS · 3.3 V LADO LÓGICO</text>
+        <text class="dg-mono" x="60" y="500">LA CADENA TÉRMICA DISPARA LA TAREA DE SEGURIDAD (PRIORIDAD 3, 20 MS)</text>
+        <text class="dg-mono" x="830" y="480">SALIDAS DE POTENCIA VÍA RELÉS</text>
+        <text class="dg-mono" x="830" y="500">LA PROTECCIÓN ELÉCTRICA SIGUE SIENDO LA PRINCIPAL</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head rv">
+      <span class="kicker">Arquitectura del firmware</span>
+      <h2>Tres tareas FreeRTOS, prioridades claras</h2>
+      <p>La seguridad nunca depende de la comunicación ni del registro de datos: cada responsabilidad corre en su propia tarea, con su prioridad y su núcleo.</p>
+    </div>
+    <div class="tasks">
+      <article class="task p3 rv">
+        <span class="prio"><i></i>Prioridad 3 · Alta</span>
+        <h3>Seguridad crítica</h3>
+        <p>Lee la cadena de relés térmicos. Ante un disparo, desenergiza de inmediato los tres contactores y activa el zumbador de alarma.</p>
+        <div class="specs">
+          <span>Núcleo<b>1</b></span>
+          <span>Periodo<b>20 ms</b></span>
+        </div>
+      </article>
+      <article class="task p2 rv rv-d1">
+        <span class="prio"><i></i>Prioridad 2 · Media</span>
+        <h3>Control de motores</h3>
+        <p>Lee los selectores y comanda los contactores solo cuando no hay alarma; libera el contactor si el selector sale de modo automático.</p>
+        <div class="specs">
+          <span>Núcleo<b>1</b></span>
+          <span>Periodo<b>100 ms</b></span>
+        </div>
+      </article>
+      <article class="task p1 rv rv-d2">
+        <span class="prio"><i></i>Prioridad 1 · Baja</span>
+        <h3>Telemetría</h3>
+        <p>Reporta el modo y el estado de cada motor por puerto serie. Corre en el otro núcleo para no interferir con las maniobras.</p>
+        <div class="specs">
+          <span>Núcleo<b>0</b></span>
+          <span>Periodo<b>3 s</b></span>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0">
+  <div class="wrap">
+    <div class="split" style="align-items:center">
+      <div class="l rv">
+        <img src="assets/img/cableado-esp32.jpg" alt="Render ilustrativo de la integración de la ESP32 al cableado del tablero" style="border-radius:var(--r-md);border:1px solid var(--border)" width="797" height="393" loading="lazy">
+        <p class="img-note">Render ilustrativo</p>
+      </div>
+      <div class="r rv rv-d1">
+        <span class="kicker">Alcance actual</span>
+        <h2 style="font-size:clamp(24px,3vw,38px);font-weight:700;letter-spacing:-.02em;margin:22px 0 18px;line-height:1.2">El software complementa, no sustituye</h2>
+        <p style="color:var(--muted)">En esta versión, el contactor de cada motor se energiza mientras su selector permanezca en automático; la lógica condicional propia de cada práctica —por tiempo o por sensor— queda como siguiente desarrollo.</p>
+        <p style="color:var(--muted);margin-top:16px">El interbloqueo por software complementa, pero <strong style="color:var(--text)">no sustituye</strong>, la protección eléctrica de los relés térmicos y del guardamotor, que siguen siendo la protección principal del banco.</p>
+        <div class="norm-list" style="margin-top:28px">
+          <div class="norm"><span class="code">a</span><span class="desc">El comando de cada contactor depende solo de la posición del selector, sin lógicas temporizadas ni condicionadas por proceso</span></div>
+          <div class="norm"><span class="code">b</span><span class="desc">La telemetría sale por puerto serie, sin almacenamiento histórico ni visualización</span></div>
+          <div class="norm"><span class="code">c</span><span class="desc">El tablero Node-RED está planificado, pero aún no implementado</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+  <div class="wrap">
+    <div class="split">
+      <div class="l rv">
+        <span class="kicker">Lógica de control</span>
+        <h2 style="font-size:clamp(24px,3vw,38px);font-weight:700;letter-spacing:-.02em;margin:22px 0 18px;line-height:1.2">Interbloqueo de seguridad por software</h2>
+        <p style="color:var(--muted)">La orden de mando queda supeditada al estado de la cadena térmica: cualquier disparo inhibe de inmediato las tres salidas de potencia y activa la señalización acústica.</p>
+      </div>
+      <div class="r rv rv-d1">
+        <div class="norm-list">
+          <div class="norm"><span class="code">REGLA 1</span><span class="desc">Cada contactor se energiza mientras su selector esté en automático y no exista alarma</span></div>
+          <div class="norm"><span class="code">REGLA 2</span><span class="desc">Si el selector sale de automático, la tarea de control libera el contactor de inmediato</span></div>
+          <div class="norm"><span class="code">REGLA 3</span><span class="desc">Ante el disparo de cualquier térmico, los tres contactores se desenergizan y suena la alarma</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="split">
+      <div class="l rv">
+        <span class="kicker">Trabajo futuro</span>
+        <h2 style="font-size:clamp(24px,3vw,38px);font-weight:700;letter-spacing:-.02em;margin:22px 0 18px;line-height:1.2">Tablero de monitoreo en Node-RED</h2>
+        <p style="color:var(--muted)">La siguiente fase usará la telemetría UART que el firmware ya emite cada 3 segundos para visualizar en tiempo real el modo y el estado de cada motor, el historial de eventos de la cadena térmica y las alarmas activadas. También sentará las bases del registro de datos y, eventualmente, de la supervisión remota por Wi-Fi.</p>
+      </div>
+      <div class="r rv rv-d1">
+        <span class="kicker" style="margin-bottom:22px">Referencias del informe</span>
+        <ul class="refs">
+          <li>Barry, R. (2020). <em>Mastering the FreeRTOS real time kernel</em> (3.ª ed.). Real Time Engineers Ltd.</li>
+          <li>Espressif Systems. (2024). <em>ESP32 technical reference manual</em> (v5.3).</li>
+          <li>International Electrotechnical Commission. (2023). <em>IEC 60947-4-1: Contactors and motor-starters</em>.</li>
+          <li>OpenJS Foundation. (2024). <em>Node-RED: Flow-based programming for the Internet of Things</em>. nodered.org</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0">
+  <div class="wrap" style="text-align:center">
+    <div class="rv" style="display:inline-block">
+      <span class="kicker" style="justify-content:center">Sigue el recorrido</span>
+      <h2 style="font-size:clamp(26px,3.4vw,44px);font-weight:800;letter-spacing:-.02em;margin:20px 0 30px">Mira el banco ya construido</h2>
+      <a class="btn btn-primary" href="galeria.html">Ir a la galería
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand">AUTOMATION<b>//</b>DESK</div>
+        <p>Banco de entrenamiento eléctrico-industrial 4.0 con sistema de monitoreo basado en ESP32. Proyecto Integrador, Facultad de Ingeniería.</p>
+      </div>
+      <div>
+        <h4>Portafolio</h4>
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="banco.html">El banco</a></li>
+          <li><a href="galeria.html">Galería</a></li>
+          <li><a href="equipo.html">Equipo y cronograma</a></li>
+          <li><a href="riesgos.html">Matriz de riesgos</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Institución</h4>
+        <ul>
+          <li><a href="https://www.usb.edu.co" target="_blank" rel="noopener">Universidad San Buenaventura</a></li>
+          <li><span style="color:var(--muted);font-size:14px">Bogotá D.C., Colombia</span></li>
+          <li><span style="color:var(--muted);font-size:14px">Semestre 2026-II</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bar">
+      <span>© <span data-year>2026</span> Bryan Cadena Agudelo · Ángel David Rubio</span>
+      <span>Profesor: Jonathan Paolo Tovar</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>

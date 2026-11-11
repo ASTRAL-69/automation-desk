@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Equipo y cronograma — Automation Desk</title>
+<meta name="description" content="Equipo del proyecto Automation Desk, cronograma de seis fases del semestre 2026-II y resultados parciales del banco de entrenamiento.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%230A0B0D'/><circle cx='16' cy='16' r='7' fill='%23FF9E40'/></svg>">
+</head>
+<body>
+
+<nav class="nav" aria-label="Navegación principal">
+  <a class="nav-brand" href="index.html">AUTOMATION<b>//</b>DESK</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Inicio</a></li>
+    <li><a href="banco.html">El banco</a></li>
+    <li><a href="monitoreo.html">Monitoreo ESP32</a></li>
+    <li><a href="riesgos.html">Riesgos</a></li>
+    <li><a href="galeria.html">Galería</a></li>
+    <li><a href="equipo.html" aria-current="page">Equipo</a></li>
+  </ul>
+  <button class="nav-toggle" aria-label="Abrir menú" aria-expanded="false">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7h18M3 12h18M3 17h18"/></svg>
+  </button>
+</nav>
+
+<div class="mobile-menu" role="dialog" aria-label="Menú">
+  <button class="mobile-menu-close" aria-label="Cerrar menú">✕</button>
+  <a href="index.html"><span class="idx">01</span>Inicio</a>
+  <a href="banco.html"><span class="idx">02</span>El banco</a>
+  <a href="monitoreo.html"><span class="idx">03</span>Monitoreo ESP32</a>
+  <a href="riesgos.html"><span class="idx">04</span>Riesgos</a>
+  <a href="galeria.html"><span class="idx">05</span>Galería</a>
+  <a href="equipo.html" aria-current="page"><span class="idx">06</span>Equipo</a>
+</div>
+
+<header class="page-hero grid-bg">
+  <div class="wrap">
+    <span class="kicker rv">06 / Equipo y cronograma</span>
+    <h1 class="rv rv-d1">Seis fases, seis semanas, un banco validado</h1>
+    <p class="rv rv-d2">Desarrollo tecnológico aplicado con revisiones periódicas: del diagnóstico del tablero existente a la sustentación en EXPOSANBUENA.</p>
+  </div>
+</header>
+
+<section class="section" style="padding-top:24px">
+  <div class="wrap">
+    <div class="section-head rv">
+      <span class="kicker">El equipo</span>
+      <h2>Quiénes construyen el Automation Desk</h2>
+    </div>
+    <div class="team">
+      <article class="member rv">
+        <span class="role">Integrante · Hardware y tablero</span>
+        <h3>Bryan Cadena Agudelo</h3>
+        <p>Estudiante del programa académico de Ingeniería, Universidad San Buenaventura, Bogotá.</p>
+      </article>
+      <article class="member rv rv-d1">
+        <span class="role">Integrante · Firmware y monitoreo</span>
+        <h3>Ángel David Rubio</h3>
+        <p>Estudiante del programa académico de Ingeniería, Universidad San Buenaventura, Bogotá.</p>
+      </article>
+      <article class="member rv rv-d2" style="grid-column:1/-1">
+        <span class="role">Director del proyecto</span>
+        <h3>Jonathan Paolo Tovar</h3>
+        <p>Profesor del Proyecto Integrador, Facultad de Ingeniería, Universidad San Buenaventura — sede Bogotá. Semestre 2026-II.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+  <div class="wrap">
+    <div class="section-head rv">
+      <span class="kicker">Cronograma · 2026</span>
+      <h2>Plan de seis semanas</h2>
+      <p>Fechas propuestas por el equipo; pueden ajustarse según el calendario académico.</p>
+    </div>
+    <div class="split">
+      <div class="l rv">
+        <img src="assets/img/tablero-montaje.jpg" alt="Render ilustrativo de un tablero en taller" style="border-radius:var(--r-md);border:1px solid var(--border)" width="744" height="800" loading="lazy">
+        <p class="img-note">Render ilustrativo</p>
+      </div>
+      <div class="r rv rv-d1">
+        <div class="timeline">
+          <div class="tl-item done">
+            <span class="fase">FASE 01</span>
+            <h3>Diagnóstico y requerimientos</h3>
+            <p>Inventario de componentes, revisión de la normativa aplicable y selección de las señales a supervisar.</p>
+            <span class="fecha">28 sep – 4 oct</span>
+          </div>
+          <div class="tl-item done">
+            <span class="fase">FASE 02</span>
+            <h3>Diseño de la arquitectura de monitoreo</h3>
+            <p>Asignación de pines, acondicionamiento de señal con optoacopladores y módulo de relés, y definición de las tareas del firmware.</p>
+            <span class="fecha">5 – 11 oct</span>
+          </div>
+          <div class="tl-item done">
+            <span class="fase">FASE 03</span>
+            <h3>Desarrollo del firmware</h3>
+            <p>Programación de las tres tareas FreeRTOS: seguridad crítica, control de motores y telemetría.</p>
+            <span class="fecha">12 – 25 oct</span>
+          </div>
+          <div class="tl-item done">
+            <span class="fase">FASE 04</span>
+            <h3>Integración en el tablero</h3>
+            <p>Cableado de entradas y salidas, montaje del módulo de relés y prueba de señales sin carga.</p>
+            <span class="fecha">19 oct – 1 nov</span>
+          </div>
+          <div class="tl-item">
+            <span class="fase">FASE 05</span>
+            <h3>Pruebas y validación</h3>
+            <p>Simulación de disparo del relé térmico, verificación del apagado de los tres contactores, revisión de la alarma y los reportes por puerto serie.</p>
+            <span class="fecha">26 oct – 8 nov</span>
+          </div>
+          <div class="tl-item">
+            <span class="fase">FASE 06</span>
+            <h3>Documentación y entrega</h3>
+            <p>Informe final, planos actualizados y preparación de la sustentación en EXPOSANBUENA.</p>
+            <span class="fecha">2 – 8 nov</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head rv">
+      <span class="kicker">Resultados parciales</span>
+      <h2>Lo construido hasta la fecha</h2>
+      <p>El tablero físico, el mapa de señales y la arquitectura del firmware ya están listos. Las pruebas de validación de la Fase 5 están programadas según el cronograma.</p>
+    </div>
+    <div class="mods" style="grid-template-columns:repeat(3,1fr)">
+      <article class="mod rv" style="min-height:auto">
+        <span class="idx">RESULTADO — 01</span>
+        <h3>Tablero físico armado</h3>
+        <p>Breakers, contactores trifásicos, relés térmicos NR2-25, temporizador y panel frontal completo con pulsadores, selectores, pilotos, sirena y amperímetro.</p>
+      </article>
+      <article class="mod rv rv-d1" style="min-height:auto">
+        <span class="idx">RESULTADO — 02</span>
+        <h3>Mapa de señales definido</h3>
+        <p>Ocho pines GPIO asignados: tres selectores y la cadena térmica como entradas aisladas; tres contactores y el zumbador como salidas.</p>
+      </article>
+      <article class="mod rv rv-d2" style="min-height:auto">
+        <span class="idx">RESULTADO — 03</span>
+        <h3>Firmware por tareas</h3>
+        <p>Arquitectura FreeRTOS que separa seguridad, control y telemetría con prioridades y núcleos distintos. Base lista para Node-RED el próximo semestre.</p>
+      </article>
+    </div>
+    <div class="rv" style="margin-top:56px;text-align:center">
+      <a class="btn btn-primary" href="galeria.html">Ver las fotos del banco
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand">AUTOMATION<b>//</b>DESK</div>
+        <p>Banco de entrenamiento eléctrico-industrial 4.0 con sistema de monitoreo basado en ESP32. Proyecto Integrador, Facultad de Ingeniería.</p>
+      </div>
+      <div>
+        <h4>Portafolio</h4>
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="banco.html">El banco</a></li>
+          <li><a href="monitoreo.html">Monitoreo ESP32</a></li>
+          <li><a href="galeria.html">Galería</a></li>
+          <li><a href="riesgos.html">Matriz de riesgos</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Institución</h4>
+        <ul>
+          <li><a href="https://www.usb.edu.co" target="_blank" rel="noopener">Universidad San Buenaventura</a></li>
+          <li><span style="color:var(--muted);font-size:14px">Bogotá D.C., Colombia</span></li>
+          <li><span style="color:var(--muted);font-size:14px">Semestre 2026-II</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bar">
+      <span>© <span data-year>2026</span> Bryan Cadena Agudelo · Ángel David Rubio</span>
+      <span>Profesor: Jonathan Paolo Tovar</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>
